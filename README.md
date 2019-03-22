@@ -1,2 +1,1 @@
-#TelitLink
 Telit GSM module software. The repository contains the software which operates by AT commands. The software can send/receive SMSs with configuration or commands. Connect or perform operations on schedule. Establish a serial-tcp hdlc-wise bridge via GSM. The server application can handle multiple modules connected at the same time. Also, the server application has a Html/js/websocket interface that allows to monitor connected modules online.
