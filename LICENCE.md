@@ -1,1 +1,1 @@
-CC BY-NC-ND
+CC BY-NC-ND 3.0
