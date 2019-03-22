@@ -1,0 +1,351 @@
+<html>
+	<head>
+		<title>Web interface</title>
+		<meta charset="UTF-8"/>
+	<style type="text/css">
+			body * {
+			font-family: "Arial Black", Gadget, sans-serif
+			}
+			table#main {
+				margin: 0 auto;
+				width: 80%;
+				height: 90%;
+				width: 1000px;
+				border: 0px solid black;
+				border-collapse: collapse;
+			}
+				
+			table#main tr,table#main td {
+				border: 0px solid black;
+			}
+			
+			table#main td {
+				vertical-align:top;
+			}
+			
+			table#shedulerLine {
+				width: 88%;
+				margin:13px auto 0
+			}
+			
+			table#shedulerLine td ~ td::before {
+				display:block;
+				position:relative;
+				top:-3px;
+				width:7px;
+				height:29px;
+				background-color: #00FF00;
+				left: -4px;
+				content: ""
+			}
+			table#shedulerLine tr {
+				position: relative;
+				display:block;
+				width: 100%;
+				height: 29px;
+				background-color:  	#C0C0C0;
+			}
+			
+			table#sheduler {
+				position:relative;
+				top:29pt;
+				max-height: 100%;
+				padding-right: 5px;
+			}
+			table#sheduler td {
+				height:21px;
+				text-align:center;
+				}
+			
+			/*tr#localSettings tr#localIpAddr td:last-child {
+				visibility:hidden;
+			}*/
+			
+			tr#localSettings tr#localIpAddr:hover td:last-child {
+				display: table-cell;
+			}
+			
+				
+			table#sheduler tr.editable > td:nth-child(2)::before{
+				content: attr(hour) ':' attr(minute);
+			}
+			table#sheduler tr.editable > td:nth-child(3)::before{
+				content: attr(dtimemode)
+			}
+			table#sheduler tr.editable > td:nth-child(4)::before{
+				content: attr(action)
+			}
+			
+/*			table#sheduler tr.editable > td:nth-child(4)[action="01"]::before{
+				content: 'Most';
+			}
+			
+			table#sheduler tr.editable > td:nth-child(4)[action="02"]::before{
+				content: 'Dane';
+			}
+			
+			table#sheduler tr.editable > td:nth-child(4)[action="03"]::before{
+				content: 'Stat';
+			}*/
+			
+			table#sheduler tr#editor{
+				position:relative;
+				visibility:hidden;
+				background-color: #ffffff;
+				top:0px
+			}
+			table#sheduler tr#editor > td:nth-child(2){ padding-right:7pt; }
+			
+			tr#localSettings tr#localIpEditor td:last-child ,
+			table#sheduler tr#editor > td:last-child{
+				background-position: center;
+				background-repeat: no-repeat;
+				background-size: 16px;
+				background-image: url('check67.png');
+				width:20px;
+			}
+			table#sheduler th {
+				height:21px;
+				padding-right:7px;
+			}
+			table#sheduler tr.editable > td:first-child:before {
+				content: attr(in)
+			}
+			tr#localSettings tr#localIpAddr td:last-child,
+			table#sheduler tr.editable > td:nth-last-child(1),
+			table#sheduler tr.editable > td:nth-last-child(2){
+				display:none;
+				background-position: center;
+				background-repeat: no-repeat;
+				background-size: 21px;
+				width:20px;
+			}
+			tr#localSettings tr#localIpAddr td:last-child,
+			table#sheduler tr.editable > td:nth-last-child(1){
+				background-image: url('pencil.png');
+			}
+			table#sheduler tr.editable > td:nth-last-child(2){
+				background-image: url('delete_icon.png');
+			}
+			table#sheduler tr.editable:hover > td:nth-last-child(1),
+			table#sheduler tr.editable:hover > td:nth-last-child(2){
+				display:table-cell;
+			}
+			
+			table#main tr.headr {
+				text-align:center;
+				height:25px;
+				border: 0px solid black
+				border-width: 0px 1px 0px 0px;
+			}
+			table#main > tbody > tr:nth-child(2) > td:first-child{
+				border-width: 0px 1px 0px 0px;
+				width:198px;
+			}
+			table#main #deviceSettings {}
+			
+			table#main tr#deviceSettings >  td:nth-child(2),
+			table#main tr#schedulerbuttons >  td,
+			table#main tr#localSettings > td {
+				padding-left:20px;
+			}
+			table#main tr#localSettings >  td {
+				height:35%
+			}
+			table#main tr#localSettings #localIpEditor input#localIpSelect {
+				width:92px;
+			
+			} 
+			table#main tr#localSettings tr#localIpEditor {
+				background-color: #ffffff;
+				visibility: hidden;
+				position: relative;
+			}
+			
+			table#main tr#localSettings #localIpEditor input#localPortSelect{
+				width:59pt;
+			}
+			
+			table#main td ul#devicesList{
+				list-style-type: none;
+				padding-left:0px;
+				list-style-position: inside;
+			}
+			
+			table#main td ul#devicesList > li{
+				position:relative;
+				border: 0px solid black;
+				border-width: 0px 0px 1px 0px;
+				padding:3pt 0 1pt 4px;
+			}
+			
+			table#main td ul#devicesList li.connected{
+				background-color: #CCFFCC;
+			}
+			table#main td ul#devicesList > li:hover{
+				background-color: #e0e0e0;
+			}
+			
+			table#main td ul#devicesList li[active=True]::before{
+				display: block;
+				position:absolute;
+				width: 26px;
+				top:0;
+				right:-5px;
+				display: block;
+				content:"";
+			}
+			table#main td ul#devicesList li.connected[active=True]::before{
+				background: linear-gradient(to right, #CCFFCC , #FFFFFF);
+				height:36px;
+			}
+		/*	table#main td ul#devicesList li.connected:hover > span::after {
+				font-size:11px;
+				font-weight: 300;
+				padding-left: 5px;
+				content: '(odłącz)';
+				text-decoration: underline;
+				color: #0000FF;
+			}*/
+			table#main td ul#devicesList li.disconnected[active=True]::before{
+				background-color: #ffffff;
+				height:18pt;
+			}
+			
+			table#main td ul#devicesList li[active=True]:hover::before{
+				background: linear-gradient(to right, #e0e0e0 , #FFFFFF);
+				}
+			table#main td ul#devicesList li.connected::after{
+				display: block;
+				position:relative;
+				left:12pt;
+				font-size:9px;
+				paddding: 0 17px;
+				width:30%;
+				background-color: green;
+				content:'(Połączono)';
+				}
+			table#deviceSettings {
+					height:100%;
+					padding: 0 0 0 10px;
+					display:block;
+					position: relative;
+					top: 29px;
+					float: left; 
+					border-width: 1px 0 0 1px; 
+					border-style: solid; 
+					padding-top: 8px;
+				}
+			table#main tr#schedulerbuttons > td{
+				padding-left: 26px;
+			}
+			button#disconnector {
+				position: absolute;
+				float:right;
+				top:0;
+				z-index:0;
+				display:none;
+				
+			}
+			
+		</style>
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+			<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+			<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+			<script type="text/javascript" src="./webif.js"></script>
+	</head>
+	<body><table id="main">
+	<tr class="headr">
+		<th>Wybór urządzenia</th>
+		<th>TelitLink</th>
+	</tr>
+	<tr id="deviceSettings">
+		<td ROWSPAN=4>
+		<ul id="devicesList">
+			<li class="disconnected" active="True">Urządzenie 1</li>
+			<li>Urządzenie 2</li>
+			<li>Urządzenie 3</li>
+			<li class="disconnected">Urządzenie 4</li>
+			<li>Urządzenie 5</li>
+			<li>Urządzenie 6</li>
+		</ul><button id="disconnector" >Odłącz</button></td>
+		<td style="padding-bottom: 30pt;">
+			<div style="margin: 0 auto">Harmonogram:</div>
+			<table id="shedulerLine">
+				<tr><td></td><td></td></tr>
+			</table>
+			<table style="height:80%;">
+				
+				<tr><td><table id="sheduler" style="float:left">
+				<thead><tr><th>id</th><th>Czas</th><th>Tryb</th><th>Akcja</th><th></th><th style="width: 15px"></th></tr></thead>
+				<tbody>
+					<tr class="editable"><td in="1"></td><td hour="23" minute="23"></td><td></td><td></td><td></td><td></td></tr>
+					<tr class="editable"><td in="2"></td><td hour="23" minute="23"></td><td></td><td></td><td></td><td></td></tr>
+					<tr class="editable"><td in="3"></td><td hour="23" minute="23"></td><td></td><td></td><td></td><td></td></tr>
+					<tr class="editable"><td in="4"></td><td hour="23" minute="23"></td><td></td><td></td><td></td><td></td></tr>
+					<tr class="editable"><td in="5"></td><td hour="23" minute="23"></td><td></td><td></td><td></td><td></td></tr>
+				</tbody><tfoot>
+				<tr id="editor">
+					<td></td>
+					<td>
+						<input size="2" id="hour" type="number" style="width:28pt;" min="0"/>:
+						<input size="2" id="minute" type="number" style="width:28pt;" max="59" min="0" />
+					</td>
+					<td>
+						<select id="timemode">
+							<option value="date">Date</option>
+							<option value="inter">Inter</option>
+							<option value="daily">Daily</option>
+						</select>
+					<input type="text" type="hidden" id="datepicker">
+					</td>
+					<td>
+						<select id="mode">
+							<option value="SMSCHECK">SMS</option>
+							<option value="CONNECT">Most</option>
+							<option value="WATCHDOG">Watchdog</option>
+						</select>
+					</td>
+					<td></td>
+				</tr>
+				</tfoot>
+			</table></td>
+			<td><table style="float:left" id="deviceSettings">
+				<!--<tr><td>Nazwa urządzenia</td><td></td></tr>-->
+				<tr id="wanIpAddr" ><td>Adres Serwera WAN: </td><td>79.188.13.59:1005</td></tr>
+				<tr id="deviceIpAddr"><td>Adres Urządzenia: </td><td>79.188.13.59:1005</td></tr>
+				<tr><td>Opis:</td></tr>
+				<tr><td style="font-size: 9pt; padding-left: 20px;" id="deviceDescription"></td></tr>
+			</table></td>
+			</table>
+		</td>
+	<tr id="schedulerbuttons"><td>		<button id="addShedulerRecord" type="button">Dodaj</button><button type="button" id="applyShedulerValues">Zatwierdź</button></td></tr>
+	</tr>
+	<tr class="headr">
+		<th>Właściwości Lokalne</th>
+	</tr>
+	<tr id="localSettings">
+		<td>
+		<table><tbody>
+		<tr><td>Liczba połączeń:</td><td>3</td></tr>
+		<tr id="selectInterface"><td>Interfejs: </td><td><select>
+			<option>TCP</option>
+			<option>SERIAL</option>
+		</select></td></tr>
+		<tr id="localIpAddr"><td>Adres Serwera:</td><td>127.0.0.1:1006</td><td> </td></tr>
+		<tr id="selectPort"><td>Port mostu: </td><td><select>
+			<option>COM1</option>
+			<option>COM2</option>
+		</select></td></tr>
+		<tr><td></td></tr>
+		<tbody><tfoot><tr id="localIpEditor"><td>Adres Serwera:</td><td>
+			<input id="localIpSelect"/>
+			:<input id="localPortSelect">
+		</td><td> </td></tr>
+				<tr><td><button id="connectToSever">Połącz</button></td></tr>
+		</tfoot>
+		</table>
+		</td>
+	</tr>
+	</table></body>
+</html>

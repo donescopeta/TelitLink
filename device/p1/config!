@@ -1,0 +1,14 @@
+~79.188.13.59:1005;
+@sms_limit=8;
+@atstart AT+CFUN=0;
+@name=TelitR1;
+@desc=uradzenietestowe;
+@maxlate=300;
+@gsmuser="playmetric";
+@gsmpass="";
+@set_charm 
+	inter-0:10-SMSCHECK
+	inter-0:39-SMSCHECK 
+	inter-0:02-CONNECT;
+@gpio_watchdog 1 1 1;
+@gpio_optics 1 1 1;
